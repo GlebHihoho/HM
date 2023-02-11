@@ -250,6 +250,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   force: 4
+  damage: 150
   impactPrefab: {fileID: 100002, guid: 69bf9ed1d48ad4a96ac2795cef9ea478, type: 3}
   shootPoint: {fileID: 1522187646}
 --- !u!1 &1936789935079988749
