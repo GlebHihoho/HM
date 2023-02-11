@@ -5,39 +5,31 @@ namespace DefaultNamespace
 {
     public class Weapon : MonoBehaviour
     {
-        // [SerializeField] - говорит о том, что переменную можно редачить в юнити
-        [SerializeField] private float force = 4; // сила выстрела
-        [SerializeField] private float damage = 1; // урон от выстрела
-        [SerializeField] private GameObject impactPrefab; // префаб эффекта попадания
-        [SerializeField] private Transform shootPoint; // точка, отуда идет выстрел
-    
-        // Стандартный юнити метод Update - вызывается каждый кадр
+        [SerializeField] private float force = 4;
+        [SerializeField] private float damage = 1;
+        [SerializeField] private GameObject impactPrefab;
+        [SerializeField] private Transform shootPoint;
+
         private void Update()
         {
-            // Если нажимаем левую(0) кнопку мыши
             if (Input.GetMouseButtonDown(0))
             {
-                // Выпускаем физический луч (Raycast)
                 if (Physics.Raycast(shootPoint.position, shootPoint.forward, out var hit))
                 {
                     // Выводим название объекта куда попали
-                    print(hit.transform.gameObject.name);
+                    // print(hit.transform.gameObject.name);
 
-                    // Создаём префаб эффекта попадания
                     Instantiate(impactPrefab, hit.point, Quaternion.LookRotation(hit.normal, Vector3.up));
 
-                    // Пытаемся получить из объекта, куда попали DestructibleObject
                     var destructible = hit.transform.GetComponent<DestructibleObject>();
-                    // если DestructibleObject есть то
+
                     if (destructible != null)
                     {
-                        // Нанести урон
                         destructible.ReceiveDamage(damage);
                     }
-                    
-                    // Пытаемся получить из объекта, куда попали Rigidbody
+
                     var rigidbody = hit.transform.GetComponent<Rigidbody>();
-                    // если Rigidbody есть то
+
                     if (rigidbody != null)
                     {
                         // Добавить отбрасывание
