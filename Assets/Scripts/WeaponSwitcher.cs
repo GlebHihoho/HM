@@ -2,35 +2,63 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class WeaponSwitcher : MonoBehaviour
+namespace DefaultNamespace
 {
-    [SerializeField] private GameObject handgun;
-    [SerializeField] private GameObject autoRifle;
-    private GameObject activeWeapon;
-
-    // Start is called before the first frame update
-    void Start()
+    public class WeaponSwitcher : MonoBehaviour
     {
-        activeWeapon = handgun;
-        autoRifle.SetActive(false);
-    }
+        [SerializeField] private GameObject handgun;
+        [SerializeField] private GameObject autoRifle;
+        [SerializeField] private GameObject grenade;
+        public static GameObject activeWeapon;
 
-    // Update is called once per frame
-    void Update()
-    {
-        if (Input.GetKeyDown(KeyCode.Q))
+        void Start()
         {
-            if (activeWeapon == handgun){
-                activeWeapon = autoRifle;
+            activeWeapon = handgun;
+            autoRifle.SetActive(false);
+            grenade.SetActive(false);
+        }
 
-                autoRifle.SetActive(true);
-                handgun.SetActive(false);
+        void Update()
+        {
+            if (Input.GetKeyDown(KeyCode.Q))
+            {
+                if (activeWeapon == handgun){
+                    activeWeapon = autoRifle;
+
+                    autoRifle.SetActive(true);
+                    handgun.SetActive(false);
+                }
+                else {
+                    activeWeapon = handgun;
+
+                    handgun.SetActive(true);
+                    autoRifle.SetActive(false);
+                }
             }
-            else {
+
+            if (Input.GetKeyDown(KeyCode.Alpha1)) {
                 activeWeapon = handgun;
 
                 handgun.SetActive(true);
                 autoRifle.SetActive(false);
+                if (grenade != null) grenade.SetActive(false);
+            }
+
+            if (Input.GetKeyDown(KeyCode.Alpha2)) {
+                activeWeapon = autoRifle;
+
+                handgun.SetActive(false);
+                autoRifle.SetActive(true);
+                if (grenade != null) grenade.SetActive(false);
+            }
+
+            if (Input.GetKeyDown(KeyCode.G)) {
+                activeWeapon = grenade;
+
+                handgun.SetActive(false);
+                autoRifle.SetActive(false);
+
+                if (grenade != null) grenade.SetActive(true);
             }
         }
     }
