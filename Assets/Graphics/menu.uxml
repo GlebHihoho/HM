@@ -1,0 +1,9 @@
+<ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements">
+    <ui:VisualElement style="height: 1080px; width: 1920px; flex-direction: column; justify-content: center; align-items: center;">
+        <ui:VisualElement>
+            <ui:Button text="Start Game" display-tooltip-when-elided="true" style="width: 300px; height: 50px; font-size: 25px; border-top-left-radius: 20px; border-bottom-left-radius: 20px; border-top-right-radius: 20px; border-bottom-right-radius: 20px; opacity: 1; background-color: rgba(207, 89, 89, 255); color: rgba(0, 0, 0, 255); transition-property: background-color, ignored; transition-duration: 0.3s, 0s;" />
+            <ui:Button text="Settings" display-tooltip-when-elided="true" style="width: 300px; height: 50px; font-size: 25px; border-top-left-radius: 20px; border-bottom-left-radius: 20px; border-top-right-radius: 20px; border-bottom-right-radius: 20px; opacity: 1; background-color: rgb(207, 89, 89); color: rgb(0, 0, 0);" />
+            <ui:Button text="Exit" display-tooltip-when-elided="true" style="width: 300px; height: 50px; font-size: 25px; border-top-left-radius: 20px; border-bottom-left-radius: 20px; border-top-right-radius: 20px; border-bottom-right-radius: 20px; opacity: 1; background-color: rgb(207, 89, 89); color: rgb(0, 0, 0);" />
+        </ui:VisualElement>
+    </ui:VisualElement>
+</ui:UXML>
