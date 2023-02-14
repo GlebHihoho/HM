@@ -1,0 +1,6 @@
+<ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" editor-extension-mode="False">
+    <Style src="project://database/Assets/menu.uss?fileID=7433441132597879392&amp;guid=0191fc32d4440744da68b7ad773bc56d&amp;type=3#menu" />
+    <ui:VisualElement style="width: 1920px; height: 1080px; flex-direction: column; align-items: center; justify-content: center;">
+        <ui:VisualElement name="menuContainer" />
+    </ui:VisualElement>
+</ui:UXML>
