@@ -4,11 +4,14 @@ using System.Linq;
 using TMPro;
 using UnityEngine;
 using Random = UnityEngine.Random;
+using UnityEngine.UIElements;
+using UnityEngine.Events;
 
 namespace Hangman.Scripts
 {
     public class HangmanGame : MonoBehaviour
     {
+        [SerializeField] private VisualTreeAsset buttonTemplate;
         [SerializeField] private TextMeshProUGUI _textField;
         [SerializeField] private int hp = 7;
 
@@ -64,6 +67,25 @@ namespace Hangman.Scripts
             var randomIndex = Random.Range(0, words.Length);
 
             wordToGuess = words[randomIndex];
+
+            var keyBoardContainer = GetComponent<UIDocument>().rootVisualElement.Q<VisualElement>("keyBoard");
+
+            foreach (char charItem in alphabet)
+            {
+                VisualElement newElement = buttonTemplate.CloneTree();
+                Button button = newElement.Q<Button>("menuButton");
+
+                button.text = charItem.ToString();
+
+                button.clicked += delegate { OnKeyClick(charItem); };
+
+                keyBoardContainer.Add(newElement);
+            }
+        }
+
+        private void OnKeyClick(char item)
+        {
+            print(item);
         }
 
 
@@ -136,7 +158,7 @@ namespace Hangman.Scripts
             
             // print(string.Join(", ", guessedLetters));
             print(stringToPrint);
-            _textField.text = stringToPrint;
+            // _textField.text = stringToPrint;
         }
     }
 }
