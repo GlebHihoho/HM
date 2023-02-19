@@ -1,0 +1,18 @@
+<ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" editor-extension-mode="False">
+    <Style src="project://database/Assets/Hangman/UI/KeyBoardItem.uss?fileID=7433441132597879392&amp;guid=9ec5fdcae30c47f40a208fb9e5d6bcd0&amp;type=3#KeyBoardItem" />
+    <ui:VisualElement name="MainContainer" style="height: 1080px; width: 1920px; justify-content: center; align-items: center; background-color: rgb(161, 161, 161);">
+        <ui:VisualElement name="guessBlock" style="height: 100px; width: 800px; background-color: rgb(219, 156, 156); justify-content: center; align-items: center;">
+            <ui:Label display-tooltip-when-elided="true" name="guessField" style="width: auto; height: 50px; align-items: center; justify-content: center; font-size: 50px; color: rgb(22, 3, 3); -unity-font-style: normal; -unity-text-align: middle-left; word-spacing: 10px; letter-spacing: 30px;" />
+        </ui:VisualElement>
+        <ui:VisualElement name="mainBlock" style="height: 300px; width: 800px; flex-direction: row; justify-content: center;">
+            <ui:VisualElement name="imgBlock" style="height: 100%; width: 600px; background-color: rgb(103, 148, 250); justify-content: center; align-items: center;">
+                <ui:Label display-tooltip-when-elided="true" name="result" style="font-size: 100px; color: rgb(0, 0, 0);" />
+            </ui:VisualElement>
+            <ui:VisualElement name="hpBlock" style="height: 100%; width: 200px; background-color: rgb(110, 209, 96); justify-content: center; align-items: center;">
+                <ui:Label text="HP" display-tooltip-when-elided="true" name="hpLabel" style="color: rgb(0, 0, 0); font-size: 50px;" />
+                <ui:Label display-tooltip-when-elided="false" enable-rich-text="true" name="hpValue" style="font-size: 50px; color: rgb(0, 0, 0);" />
+            </ui:VisualElement>
+        </ui:VisualElement>
+        <ui:VisualElement name="keyBoard" style="height: 400px; width: 800px; background-color: rgb(216, 226, 95); align-items: flex-start; justify-content: flex-start; -unity-text-align: middle-center; padding-left: 50px; padding-right: 50px; padding-top: 50px; padding-bottom: 50px; flex-direction: row; flex-wrap: wrap;" />
+    </ui:VisualElement>
+</ui:UXML>
