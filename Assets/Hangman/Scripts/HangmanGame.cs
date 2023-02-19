@@ -12,7 +12,6 @@ namespace Hangman.Scripts
     public class HangmanGame : MonoBehaviour
     {
         [SerializeField] private VisualTreeAsset buttonTemplate;
-        [SerializeField] private TextMeshProUGUI _textField;
         [SerializeField] private int hp = 7;
 
         private char[] alphabet =
@@ -44,29 +43,32 @@ namespace Hangman.Scripts
             'y',
             'z',
         };
+        private int currentHp = 0;
 
-        
         private List<char> guessedLetters = new List<char>();
         private List<char> wrongTriedLetter = new List<char>();
 
         private string[] words =
         {
-            "Cat",
-            "Dog",
-            "Rain",
-            "Unity",
-            "Time"
+            "cat",
+            "dog",
+            "rain",
+            "unity",
+            "time"
         };
 
         private string wordToGuess = "";
-        
-        private KeyCode lastKeyPressed;
 
         private void Start()
         {
+            currentHp = hp;
+            UpdateHpView(currentHp, hp);
+
             var randomIndex = Random.Range(0, words.Length);
 
             wordToGuess = words[randomIndex];
+
+            UpdateGuessFieldView(new String('_', wordToGuess.Length));
 
             var keyBoardContainer = GetComponent<UIDocument>().rootVisualElement.Q<VisualElement>("keyBoard");
 
@@ -75,71 +77,38 @@ namespace Hangman.Scripts
                 VisualElement newElement = buttonTemplate.CloneTree();
                 Button button = newElement.Q<Button>("menuButton");
 
-                button.text = charItem.ToString();
-
-                button.clicked += delegate { OnKeyClick(charItem); };
+                button.text = charItem.ToString().ToUpper();
+                button.clicked += delegate { OnKeyClick(charItem, button); };
 
                 keyBoardContainer.Add(newElement);
             }
         }
 
-        private void OnKeyClick(char item)
+        private void OnKeyClick(char item, Button button)
         {
-            print(item);
-        }
+            button.SetEnabled(false);
 
+            bool wordContainsPressedKey = wordToGuess.Contains(item);
+            bool letterWasGuessed = guessedLetters.Contains(item);
 
-        void OnGUI()
-        {
-            Event e = Event.current;
-            if (e.isKey)
+            if (!wordContainsPressedKey && !wrongTriedLetter.Contains(item))
             {
-                // Debug.Log("Detected key code: " + e.keyCode);
+                wrongTriedLetter.Add(item);
 
-                if (e.keyCode != KeyCode.None && lastKeyPressed != e.keyCode)
-                {
-                    ProcessKey(e.keyCode);
-                    
-                    lastKeyPressed = e.keyCode;
-                }
+                UpdateHpView(currentHp -= 1, hp);
+                CheckHpStatus();
             }
-        }
 
-        private void ProcessKey(KeyCode key)
-        {
-            print("Key Pressed: " + key);
-
-            char pressedKeyString = key.ToString()[0];
-
-            string wordUppercase = wordToGuess.ToUpper();
-            
-            bool wordContainsPressedKey = wordUppercase.Contains(pressedKeyString);
-            bool letterWasGuessed = guessedLetters.Contains(pressedKeyString);
-
-            if (!wordContainsPressedKey && !wrongTriedLetter.Contains(pressedKeyString))
-            {
-                wrongTriedLetter.Add(pressedKeyString);
-                hp -= 1;
-
-                if (hp <= 0)
-                {
-                    print("You Lost!");
-                }
-                else
-                {
-                    print("Wrong letter! Hp left = " + hp);
-                }
-            }
-            
             if (wordContainsPressedKey && !letterWasGuessed)
             {
-                guessedLetters.Add(pressedKeyString);
+                guessedLetters.Add(item);
             }
 
             string stringToPrint = "";
-            for (int i = 0; i < wordUppercase.Length; i++)
+
+            for (int i = 0; i < wordToGuess.Length; i++)
             {
-                char letterInWord = wordUppercase[i];
+                char letterInWord = wordToGuess[i];
 
                 if (guessedLetters.Contains(letterInWord))
                 {
@@ -151,14 +120,84 @@ namespace Hangman.Scripts
                 }
             }
 
-            if (wordUppercase == stringToPrint)
+            if (wordToGuess == stringToPrint)
             {
-                print("You win!");
+                ShowResetButton();
+                ShowResult("WIN");
             }
-            
-            // print(string.Join(", ", guessedLetters));
-            print(stringToPrint);
-            // _textField.text = stringToPrint;
+
+            UpdateGuessFieldView(stringToPrint);
+        }
+
+        private void UpdateHpView(int current, int maxHp)
+        {
+            TextElement hpValue = GetComponent<UIDocument>().rootVisualElement.Q<TextElement>("hpValue");
+
+            hpValue.text = current.ToString() + "/" + maxHp.ToString();
+        }
+
+        private void UpdateGuessFieldView(string value)
+        {
+            TextElement guessField = GetComponent<UIDocument>().rootVisualElement.Q<TextElement>("guessField");
+
+            guessField.text = value.ToUpper();
+        }
+
+        private void CheckHpStatus()
+        {
+            if (currentHp <= 0)
+            {
+                List<VisualElement> buttons = GetComponent<UIDocument>().rootVisualElement.Query("menuButton").ToList();
+
+                foreach (Button button in buttons) button.SetEnabled(false);
+
+                ShowResetButton();
+                ShowResult("LOSS");
+            }
+        }
+
+        private void ShowResetButton()
+        {
+            VisualElement hpBlock = GetComponent<UIDocument>().rootVisualElement.Q<VisualElement>("hpBlock");
+            VisualElement newElement = buttonTemplate.CloneTree();
+
+            Button button = newElement.Q<Button>("menuButton");
+            button.text = "Reset";
+            button.style.width = 100;
+            button.clicked += delegate
+            {
+                ResetLevel();
+                hpBlock.Remove(newElement);
+            };
+
+            hpBlock.Add(newElement);
+        }
+
+        private void ResetLevel()
+        {
+            currentHp = hp;
+            guessedLetters = new List<char>();
+            wrongTriedLetter = new List<char>();
+
+            UpdateHpView(currentHp, hp);
+
+            var randomIndex = Random.Range(0, words.Length);
+            wordToGuess = words[randomIndex];
+
+            UpdateGuessFieldView(new String('_', wordToGuess.Length));
+
+            List<VisualElement> buttons = GetComponent<UIDocument>().rootVisualElement.Query("menuButton").ToList();
+
+            foreach (Button button in buttons) button.SetEnabled(true);
+
+            ShowResult("");
+        }
+
+        private void ShowResult(string resultText)
+        {
+            TextElement resultField = GetComponent<UIDocument>().rootVisualElement.Q<TextElement>("result");
+
+            resultField.text = resultText;
         }
     }
 }
