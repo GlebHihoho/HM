@@ -441,5 +441,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   buttonTemplate: {fileID: 9197481963319205126, guid: 4cc3a488dc78036458d522f6073ce0aa, type: 3}
-  _textField: {fileID: 0}
-  hp: 7
+  images:
+  - {fileID: 2800000, guid: 885c5e10220d6064591863e7050817fa, type: 3}
+  - {fileID: 2800000, guid: 125d8ddb0a76f4e43b83e9b94be37643, type: 3}
+  - {fileID: 2800000, guid: 2519c80af5c2a194fabf468a213db931, type: 3}
+  - {fileID: 2800000, guid: f3668c0fc44d0e041b5385bd6fe33e96, type: 3}
+  - {fileID: 2800000, guid: bb14afdcb92a5c844ba8ca212eb72dce, type: 3}
+  - {fileID: 2800000, guid: 8fd4ac699427a3d448f1d53ff424b3ed, type: 3}
+  - {fileID: 2800000, guid: a9df672d600989345ab922fa533e7e61, type: 3}

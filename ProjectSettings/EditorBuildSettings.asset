@@ -5,10 +5,13 @@ EditorBuildSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Scenes:
-  - enabled: 1
+  - enabled: 0
     path: Assets/Shooter/Scenes/MainMenu.unity
     guid: 8b1c297144e684f4b82762ceb588a569
-  - enabled: 1
+  - enabled: 0
     path: Assets/Shooter/Scenes/ShooterLevel.unity
     guid: be42f2f2166b54357ba29c906b8e201c
+  - enabled: 1
+    path: Assets/Hangman/Scenes/Handman.unity
+    guid: ff4ea123d964f984eafdd6dae971d931
   m_configObjects: {}
