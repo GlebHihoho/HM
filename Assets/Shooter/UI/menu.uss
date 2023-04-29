@@ -1,0 +1,32 @@
+.menuButton {
+    transition-duration: 0.5s;
+    width: 300px;
+    height: 50px;
+    font-size: 30px;
+    color: rgba(7, 7, 7, 255);
+    background-color: rgba(219, 226, 20, 255);
+    border-left-width: 5px;
+    border-right-width: 5px;
+    border-top-width: 5px;
+    border-bottom-width: 5px;
+    border-top-left-radius: 15px;
+    border-bottom-left-radius: 15px;
+    border-top-right-radius: 15px;
+    border-bottom-right-radius: 15px;
+}
+
+.menuButton:hover {
+    width: 300px;
+    height: 50px;
+    font-size: 30px;
+    color: rgba(250, 235, 11, 255);
+    background-color: rgba(10, 10, 9, 255);
+    border-left-width: 5px;
+    border-right-width: 5px;
+    border-top-width: 5px;
+    border-bottom-width: 5px;
+    border-left-color: rgba(238, 225, 12, 255);
+    border-right-color: rgba(238, 225, 12, 255);
+    border-top-color: rgba(238, 225, 12, 255);
+    border-bottom-color: rgba(238, 225, 12, 255);
+}
